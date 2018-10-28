@@ -33,7 +33,6 @@ class AlbumsController < ApplicationController
         format.html { redirect_to @album, notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
-        byebug
         format.html { render :new }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
