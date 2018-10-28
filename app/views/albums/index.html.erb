@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1> My Albums</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created</th>
+      <th>Owner</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @my_albums.each do |album| %>
+      <tr>
+        <td><%= album.name %></td>
+        <td><%= album.created_at.strftime("%d-%m-%Y") %></td>
+        <td><%= album.user.email %></td>
+        <td><%= link_to 'Show', album %></td>
+        <% if album.owner_of_album?(current_user)%>
+          <td><%= link_to 'Edit', edit_album_path(album) %></td>
+          <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h1> Browse Other User Albums</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created</th>
+      <th>Owner</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @my_albums.each do |album| %>
+      <tr>
+        <td><%= album.name %></td>
+        <td><%= album.created_at.strftime("%d-%m-%Y") %></td>
+        <td><%= album.user.email %></td>
+        <td><%= link_to 'Show', album %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Album', new_album_path %>

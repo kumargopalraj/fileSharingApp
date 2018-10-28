@@ -1,0 +1,28 @@
+<% @album.errors && @album.errors.messages.each do |key,message|%>
+ <%= message[0]%>
+<%end%>
+<%= form_with(model: album, local: true,:html => { :class => "form-horizontal user" }) do |form| %>
+  <%= form.hidden_field :user_id,value: current_user.id %>
+  <div class="form-group">
+    <%= form.label :name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-4">
+      <%= form.text_field :name, autofocus: true, :class => 'form-control' %>
+    </div>
+    <%=form.error_span(:name) %>
+  </div>
+
+  <div class="photo_fields">
+    <%= form.fields_for(:photos) do |photos_form| %>
+      <%= render 'photo', f: photos_form %>
+    <% end%>
+  </div>
+
+  <%= link_to_add_row('Add Photo', form, :photos, class: 'btn btn-primary') %>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= form.submit "Submit", :class => 'btn btn-primary' %>
+      <%= link_to "Cancel", albums_path,:class => 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>
